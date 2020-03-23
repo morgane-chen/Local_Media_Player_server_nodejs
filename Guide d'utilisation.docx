@@ -1,0 +1,6 @@
+Guide d'utilisation
+
+1. télécharger tous les fichiers dans votre répertoire local
+2. dans cmd, entrer dans le répertoire Local_Media_Player_server_nodejs\bin, entrer ligne de commande "node www"
+3. ouvrir un navigateur dans votre ordi, entrer le web site : localhost:3000
+4. vous allez voir une page
