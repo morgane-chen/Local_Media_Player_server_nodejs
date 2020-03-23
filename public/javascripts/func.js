@@ -2,14 +2,14 @@
 var script=document.createElement("script");
 script.src="javascripts/jquery.js";
 
-var pre = "/resource/likes/";//前缀
+var pre = "/resource/likes/";//le préfix
 var pre2="/resource/dislikes/";
 var prefix;
-var songNum = 0;//记录当前歌曲的编号
-var songName;//存储歌曲名
-var songTotal=0;//歌曲总数
+var songNum = 0;//pour enrehistrer le numéro de la source(chason, photo ou vidéo)
+var songName;//pour ebnregistrer le nom de la source
+var songTotal=0;//nombre total des sources
 var repeat=0;
-var isFirst=1;//是否是第一首歌
+var isFirst=1;//pour voir si c'est la première source
 var audioAddress;
 var imageAddress;
 var lyricsAddress;
@@ -37,7 +37,7 @@ function Go(){
         time = setInterval(function () {
             video[0].currentTime += 5;
         }, 1000);
-    };
+    };//la fonction d'accélérer la vidéo
 
 function Back(){
        btnstart.innerHTML = "Play";
@@ -49,7 +49,7 @@ function Back(){
                 clearInterval(time);
             }
         }, 1000);
-   };
+   };// la fonction de ralentir la vidéo
 
 
 
@@ -83,38 +83,17 @@ function play() {
             video[0].pause();
             play[0].innerHTML = "Play";
         }
-}
+}//la fonction du bouton Play/Pause
 
-function why(){
-//	console.log("ak");
-	songNum = songNum + 1;//2
- //   console.log(songNum);
-    if (songNum == songTotal) {
-        songNum=0;
-    }//溢出
-    var b = document.getElementById("cataBox").childNodes;
-	var i = songNum -1;
-	b[i].style.color="white"; 					
-    b[songNum].style.color="red";  
-  //  console.log(2);
-    var src = b[songNum].src;
-	sourceDom = src;
-	console.log(sourceDom);
-	video = $("#v video")
-     video[0].src =sourceDom ;
-    $("#v").show();
-    console.log(video[0]);
-  	 video[0].play(); 
-}
-//console.log(video);
+
 function playNextVideo() {
 	
-    songNum = songNum + 1;//2
+    songNum = songNum + 1;// le numéro de vidéo suivante
     console.log(songNum);
     if (songNum == songTotal) {
         songNum=0;
         var i = songTotal-1;
-    }//溢出
+    }
     else{var i =songNum-1;}
     console.log(songNum);
 	var b = document.getElementById("cataBox").childNodes;
@@ -133,15 +112,15 @@ function playNextVideo() {
   	  video[0].play(); 
   	  var play =$("#btnstart");
 	  play[0].innerHTML = "Pause";
-}//播放下一首歌
+}//émettre la vidéo suivante 
 function playLastImage() {
 	
     songNum = songNum - 1;//2
     console.log(songNum);
     if (songNum == -1) {
-        songNum = songTotal-1;//最后一首
+        songNum = songTotal-1;//la dernière photo
         var i = 0;
-    }//溢出
+    }
     else{ i =songNum+1;}
 	var b = document.getElementById("cataBox").childNodes;
 	//var i = songNum +1;
@@ -159,7 +138,7 @@ function playLastImage() {
 								}
   //console.log(sourceDom);
      
-}//播放下一首歌
+}//émettre la photo dernière
 function playNextImage() {
 	
     songNum = songNum + 1;//2
@@ -167,7 +146,7 @@ function playNextImage() {
     if (songNum == songTotal) {
         songNum=0;
         var i = songTotal-1;
-    }//溢出
+    }//si dépasser le nombre total des images
     else{var i =songNum-1;}
     console.log(songNum);
 	var b = document.getElementById("cataBox").childNodes;
@@ -184,25 +163,17 @@ function playNextImage() {
         myImage.onload = function() {
  							 ctx.drawImage(myImage, 0, 0,canvas[0].width, canvas[0].height);
 								}
-  //console.log(sourceDom);
-//    video = $("#v video")
-//   video[0].src =sourceDom ;
-// 		$("#v").show();
-// 	 //console.log($("#v video"));
-//    //console.log(video[0]);
-//	  video[0].play(); 
-//	  var play =$("#btnstart");
-//	  play[0].innerHTML = "Pause";
-}//播放下一首歌
+
+}////émettre la photo suivante
 function playLastVideo() {
 	var play =$("#btnstart");
 	play[0].innerHTML = "Pause";
     songNum = songNum - 1;//2
     console.log(songNum);
     if (songNum == -1) {
-        songNum = songTotal-1;//最后一首
+        songNum = songTotal-1;//la dernière vidéo
         var i = 0;
-    }//溢出
+    }
     else{ i =songNum+1;}
 	var b = document.getElementById("cataBox").childNodes;
 	//var i = songNum +1;
@@ -219,7 +190,7 @@ function playLastVideo() {
    	 //console.log($("#v video"));
      // console.log(video[0]);
   	 video[0].play(); 
-}//播放下一首歌
+}//émettre la vidéo dernière
 
 function playNextSong() {
 
@@ -228,7 +199,7 @@ function playNextSong() {
     if (songNum == songTotal) {
         songNum=0;
         var i = songTotal-1;
-    }//溢出
+    }
     else {var i =songNum-1;}
     var b = document.getElementById("cataBox").childNodes;
 	//var i = songNum -1;
@@ -242,13 +213,13 @@ function playNextSong() {
     document.getElementById("myMusic").load();
     document.getElementById("musicImg").src=imageAddress;
     getLyrics();
-}//播放下一首歌
+}//émettre la chason suivante
 function playLastSong() {
     songNum=songNum-1;
     if (songNum == -1) {
-        songNum = songTotal-1;//最后一首
+        songNum = songTotal-1;
         var i = 0;
-    }//溢出
+    }
     else{var i = songNum+1;};
 	var b = document.getElementById("cataBox").childNodes;
 	//var i = songNum +1;
@@ -261,7 +232,7 @@ function playLastSong() {
     document.getElementById("myMusic").load();
     document.getElementById("musicImg").src=imageAddress;
     getLyrics();
-}//播放上一首歌
+}//émettre la chason dernière
 
 function getLyrics() {
 	
@@ -272,16 +243,16 @@ function getLyrics() {
             url: lyricsAddress,
             dataType: 'text',
             success: function(data) {
-                document.getElementById("lyrics").innerText=data;//HTML没有保留格式，Text保留格式
+                document.getElementById("lyrics").innerText=data;
             }
         });
     });
-}//获取歌词
+}// la fonction d'obtenir les paroles
 function hideLyrics(){
     document.getElementById("lyricsHide").style.display="none";
     document.getElementById("lyricsShow").style.display="inline";
     document.getElementById("lyricsBox").style.display="none";
-}//隐藏歌词
+}//la fonction de cacher les paroles
 function showLyrics(){
 	if(nolyrics == 0){
     if(isFirst==1) {
@@ -295,41 +266,35 @@ function showLyrics(){
 	document.getElementById("lyricsHide").style.display="inline";
     document.getElementById("lyricsShow").style.display="none";
 	document.getElementById("lyricsBox").style.display="none";}
-}//显示歌词
+}//la fonction d'afficher les paroles
 
-function getCatalog() {
-    var catalog1 = [];
-    songName=[];//清空歌曲名数组
-    var temp = document.getElementById("test").innerHTML;//由router传入的目录信息
-    document.getElementById("cataBox").innerHTML = "";//将原有的信息清空：去除cataBox元素的所有子元素
-    prefix=document.getElementById("prefix").innerHTML;//获得前缀
-    prefix=prefix+"/";
-    prefix=prefix.slice(9);//读取前缀，../public/resource/likes=》/resource/likes
-
-    catalog1 = temp.split(' ');//分割catalog1，即歌曲名字符串
-    songTotal = catalog1.length - 1;//歌曲总数
-
-    hideCatalog();//设置初始状态：隐藏目录
-    var i = 0;
-    for (i = 0; i < songTotal; i++) {
-        songName[i]= catalog1[i].slice(0,-4);//存储文件名，slice没问题
-
-        var p = document.createElement("p");//新建元素p
-        var t = document.createTextNode(songName[i]);//创建文本节点
-        p.appendChild(t);//将文本节点t作为p的子节点
-        p.id = i;//赋id值：从0开始，目的是通过这个可以进一步实现点击歌曲名就可以播放该首歌的功能，但还没有实现
-        document.getElementById("cataBox").appendChild(p);//将节点p作为cataBox的子节点
-    }
-		
-    //获取目录的同时自动加载第一首歌的歌词、音乐、图片信息
-    audioAddress = prefix + songName[0] + ".mp3";//得到音频地址
-    imageAddress = prefix + songName[0] + ".png";//得到图片地址
-    getLyrics();
-    hideLyrics();//设置歌词初始状态：隐藏
-    document.getElementById("audioSrc").src = audioAddress;
-    document.getElementById("myMusic").load();
-    document.getElementById("musicImg").src = imageAddress;
-}//获取目录
+//function getCatalog() {
+//  var catalog1 = [];
+//  songName=[];
+//  var temp = document.getElementById("test").innerHTML;//obtenir les informations venant de rooter
+//  document.getElementById("cataBox").innerHTML = "";//vider les informations d'avant：vider tous les éléments sous cataBox
+//  prefix=document.getElementById("prefix").innerHTML;//obtenir le Préfix
+//  prefix=prefix+"/";
+//  prefix=prefix.slice(9);//../public/resource/likes=》/resource/likes
+//
+//  catalog1 = temp.split(' ');//obtenir les strings des noms des chansons
+//  songTotal = catalog1.length - 1;//nombre total des chansons
+//
+//  hideCatalog();//cacher le catalogue
+//  var i = 0;
+//  for (i = 0; i < songTotal; i++) {
+//      songName[i]= catalog1[i].slice(0,-4);
+//
+//      var p = document.createElement("p");
+//      var t = document.createTextNode(songName[i]);
+//      p.appendChild(t);
+//      p.id = i;
+//      document.getElementById("cataBox").appendChild(p);
+//  }
+//		
+//  
+//
+//}
 var musicNum;
 var musicName;
 function getChange(e){
@@ -362,10 +327,10 @@ function getChange(e){
  					
                       if(b[i].value==musicName){
                           b[i].style.color="red";
-                            audioAddress = prefix + musicName + ".mp3";//得到音频地址
-  						   imageAddress = prefix + musicName + ".png";//得到图片地址
+                            audioAddress = prefix + musicName + ".mp3";//obtenir l'adress de la chason
+  						   imageAddress = prefix + musicName + ".png";//obtenir l'adrress de la photo de la chason
     						getLyrics();
-    						hideLyrics();//设置歌词初始状态：隐藏
+    						hideLyrics();
     						document.getElementById("audioSrc").src = audioAddress;
     						document.getElementById("myMusic").load();
     						document.getElementById("musicImg").src = imageAddress;
@@ -397,8 +362,6 @@ function getChange2(e){
                       	  songNum = i;
                       	  console.log(i);
                           b[i].style.color="red";
-                          //console.log(prefix);
-                         // console.log( prefix + musicName + ".mp4");//得到音频地址
                           var src = b[i].src;
                           sourceDom = src;  
                           console.log(sourceDom);
@@ -410,15 +373,12 @@ function getChange2(e){
    						  console.log(video[0]);
   						  video[0].play(); 
   						  video[0].onplaying = function () {
-        //获取当前video的总时间
        							 var allTime = this.duration;
        							 btntime.setAttribute("max", allTime);
     };
-    //视频播放位置发生变化时开始执行
     							video[0].ontimeupdate = function () {
        							 btntime.value = this.currentTime;
     };
-    //播放进度条的事件
 
                         }
                     }
@@ -459,7 +419,6 @@ function getChange3(e){
  					
                       if(b[i].value==musicName){
                           b[i].style.color="red";
-                         // audioAddress = prefix + musicName + ".png";//得到音频地址
   						  songNum  = i; 
   						  //console.log(canvas);
                       	  var ctx = canvas[0].getContext('2d'); 
@@ -483,35 +442,32 @@ function showCatalog(){
     document.getElementById("catalogHideImage").style.display="none";
     document.getElementById("catalogShowImage").style.display="inline";
 	var catalog1 = [];
-    songName=[];//清空歌曲名数组
-    var temp = document.getElementById("test").innerHTML;//由router传入的目录信息
+    songName=[];
+    var temp = document.getElementById("test").innerHTML;
  //   console.log(temp);
-    document.getElementById("cataBox").innerHTML = "";//将原有的信息清空：去除cataBox元素的所有子元素
-    prefix=document.getElementById("prefix").innerHTML;//获得前缀
+    document.getElementById("cataBox").innerHTML = "";
+    prefix=document.getElementById("prefix").innerHTML;
     prefix=prefix+"/music/";
-    prefix=prefix.slice(9);//读取前缀，../public/resource/likes=》/resource/likes
+    prefix=prefix.slice(9);//../public/resource/likes=》/resource/likes
 
-    catalog1 = temp.split('*');//分割catalog1，即歌曲名字符串
+    catalog1 = temp.split('*');
      console.log(catalog1);
-    songTotal = catalog1.length - 1;//歌曲总数
-    //console.log(songTotal);
-	
-    //hideCatalog();//设置初始状态：隐藏目录
+    songTotal = catalog1.length - 1;
+
     
     for (var i = 0; i < songTotal; i++) {
-        songName[i]= catalog1[i].slice(0,-4);//存储文件名，slice没问题
+        songName[i]= catalog1[i].slice(0,-4);
 		var musicName = songName[i];
-        var p = document.createElement("p");//新建元素p
+        var p = document.createElement("p");
         p.value = musicName;
-        var t = document.createTextNode(songName[i]);//创建文本节点
-        p.appendChild(t);//将文本节点t作为p的子节点
- //       console.log(p+"agafs");
-        p.id = i;//赋id值：从0开始，目的是通过这个可以进一步实现点击歌曲名就可以播放该首歌的功能，但还没有实现
+        var t = document.createTextNode(songName[i]);
+        p.appendChild(t);
+        p.id = i;
         p.src=  prefix + musicName + ".mp3";
         //console.log(p.id);
         var changeMusic =  document.getElementById(i);
         //console.log(changeMusic);
-        document.getElementById("cataBox").appendChild(p);//将节点p作为cataBox的子节点
+        document.getElementById("cataBox").appendChild(p);
   
        
     };
@@ -526,19 +482,12 @@ function showCatalog(){
                   
      };   
 
-    document.getElementById("catalogShow").style.display="none";//设置“显示目录”按钮为不可见
-    document.getElementById("catalogHide").style.display="inline";//设置“隐藏目录”按钮可见
-    document.getElementById("cataBox2").style.display="inline";//设置目录框可见
-//  audioAddress = prefix + songName[0] + ".mp3";//得到音频地址
-//  imageAddress = prefix + songName[0] + ".png";//得到图片地址
-//  getLyrics();
-//  hideLyrics();//设置歌词初始状态：隐藏
-//  document.getElementById("audioSrc").src = audioAddress;
-//  document.getElementById("myMusic").load();
-//  document.getElementById("musicImg").src = imageAddress;
+    document.getElementById("catalogShow").style.display="none";
+    document.getElementById("catalogHide").style.display="inline";
+    document.getElementById("cataBox2").style.display="inline";
 
     
-}//显示目录
+}
 function hideBtnImage(){
 	document.getElementById("buttonLast").style.display="none";
 	document.getElementById("buttonNext").style.display="none";
@@ -546,7 +495,7 @@ function hideBtnImage(){
 	document.getElementById("repeatCurrentSong").style.display="none";
 	document.getElementById("myMusic").style.display="none";
 	document.getElementById("musicImg").style.display="none";
-}
+}//cacher les boutons servant à l'émission des chasons
 function showBtnImage(){
 	document.getElementById("buttonLast").style.display="inline";
 	document.getElementById("buttonNext").style.display="inline";
@@ -554,7 +503,7 @@ function showBtnImage(){
 	document.getElementById("repeatCurrentSong").style.display="inline";
 	document.getElementById("myMusic").style.display="inline";
 	document.getElementById("musicImg").style.display="inline";
-}
+}//afficher les boutons servant à l'émission des chasons
 function hideBtnImagenoMusic(){
 
 	document.getElementById("buttonLastImage").style.display="none";
@@ -567,7 +516,7 @@ function showBtnImagenoMusic(){
 	document.getElementById("buttonNextImage").style.display="inline";
 	document.getElementById("myCanvas").style.display="inline";
 
-}
+}//afficher les boutons servant à l'émission des photos
 function hideBtnVideo(){
 	document.getElementById("buttonLastVideo").style.display="none";
 	document.getElementById("buttonNextVideo").style.display="none";
@@ -579,7 +528,7 @@ function hideBtnVideo(){
 	document.getElementById("btnstart").style.display="none";
 	document.getElementById("btnsound").style.display="none";	
 	
-}
+}//cacher les boutons servant à l'émission des vidéos
 function showBtnVideo(){
 	document.getElementById("buttonLastVideo").style.display="inline";
 	document.getElementById("buttonNextVideo").style.display="inline";
@@ -591,7 +540,7 @@ function showBtnVideo(){
 	document.getElementById("btntime").style.display="inline";
 	document.getElementById("btnstart").style.display="inline";
 	document.getElementById("btnsound").style.display="inline";	
-}
+}//afficher les boutons servant à l'émission des vidéos
 function showCatalogVideo(){
 //	showBtnVideo();
 //	hideBtnImage();
@@ -600,35 +549,35 @@ function showCatalogVideo(){
 	document.getElementById("catalogHide").style.display="none";
     document.getElementById("catalogShow").style.display="inline";
 	var catalog1 = [];
-    songName=[];//清空歌曲名数组
-    var temp = document.getElementById("video").innerHTML;//由router传入的目录信息
+    songName=[];
+    var temp = document.getElementById("video").innerHTML;
  //   console.log(temp);
-    document.getElementById("cataBox").innerHTML = "";//将原有的信息清空：去除cataBox元素的所有子元素
-    prefix=document.getElementById("prefix").innerHTML;//获得前缀
+    document.getElementById("cataBox").innerHTML = "";
+    prefix=document.getElementById("prefix").innerHTML;
     prefix=prefix+"/video/";
-    prefix=prefix.slice(9);//读取前缀，../public/resource/likes=》/resource/likes
+    prefix=prefix.slice(9);
 
-    catalog1 = temp.split('*');//分割catalog1，即歌曲名字符串
+    catalog1 = temp.split('*');
     console.log(catalog1);
-    songTotal = catalog1.length - 1;//歌曲总数
+    songTotal = catalog1.length - 1;
     console.log(songTotal);
 	
-    //hideCatalog();//设置初始状态：隐藏目录
+
     
     for (var i = 0; i < songTotal; i++) {
-        songName[i]= catalog1[i].slice(0,-4);//存储文件名，slice没问题
+        songName[i]= catalog1[i].slice(0,-4);
 		var musicName = songName[i];
-        var p = document.createElement("p");//新建元素p
+        var p = document.createElement("p");
         p.value = musicName;
-        var t = document.createTextNode(songName[i]);//创建文本节点
-        p.appendChild(t);//将文本节点t作为p的子节点
+        var t = document.createTextNode(songName[i]);
+        p.appendChild(t);
  //       console.log(p+"agafs");
-        p.id = i;//赋id值：从0开始，目的是通过这个可以进一步实现点击歌曲名就可以播放该首歌的功能，但还没有实现
+        p.id = i;
         p.src=  prefix + musicName + ".mp4";
-        //console.log(p.id);
+
         var changeMusic =  document.getElementById(i);
-        //console.log(changeMusic);
-        document.getElementById("cataBox").appendChild(p);//将节点p作为cataBox的子节点
+
+        document.getElementById("cataBox").appendChild(p);
   
        
     };
@@ -643,9 +592,9 @@ function showCatalogVideo(){
                   
      };   
 
-    document.getElementById("catalogShowVideo").style.display="none";//设置“显示目录”按钮为不可见
-    document.getElementById("catalogHideVideo").style.display="inline";//设置“隐藏目录”按钮可见
-    document.getElementById("cataBox2").style.display="inline";//设置目录框可见
+    document.getElementById("catalogShowVideo").style.display="none";
+    document.getElementById("catalogHideVideo").style.display="inline";
+    document.getElementById("cataBox2").style.display="inline";
    }
 function showCatalogImage(){
 	document.getElementById("catalogHideVideo").style.display="none";
@@ -653,34 +602,32 @@ function showCatalogImage(){
 	document.getElementById("catalogHide").style.display="none";
     document.getElementById("catalogShow").style.display="inline";
 	var catalog1 = [];
-    songName=[];//清空歌曲名数组
-    var temp = document.getElementById("image").innerHTML;//由router传入的目录信息
+    songName=[];
+    var temp = document.getElementById("image").innerHTML;
  //   console.log(temp);
-    document.getElementById("cataBox").innerHTML = "";//将原有的信息清空：去除cataBox元素的所有子元素
-    prefix=document.getElementById("prefix").innerHTML;//获得前缀
+    document.getElementById("cataBox").innerHTML = "";
+    prefix=document.getElementById("prefix").innerHTML;
     prefix=prefix+"/image/";
-    prefix=prefix.slice(9);//读取前缀，../public/resource/likes=》/resource/likes
+    prefix=prefix.slice(9);//../public/resource/likes=》/resource/likes
 	//console.log(prefix);
-    catalog1 = temp.split('*');//分割catalog1，即歌曲名字符串
-    songTotal = catalog1.length - 1;//歌曲总数
-    //console.log(songTotal);
-	
-    //hideCatalog();//设置初始状态：隐藏目录
+    catalog1 = temp.split('*');
+    songTotal = catalog1.length - 1;
+
     
     for (var i = 0; i < songTotal; i++) {
-        songName[i]= catalog1[i].slice(0,-4);//存储文件名，slice没问题
+        songName[i]= catalog1[i].slice(0,-4);
 		var musicName = songName[i];
-        var p = document.createElement("p");//新建元素p
+        var p = document.createElement("p");
         p.value = musicName;
-        var t = document.createTextNode(songName[i]);//创建文本节点
-        p.appendChild(t);//将文本节点t作为p的子节点
+        var t = document.createTextNode(songName[i]);
+        p.appendChild(t);
  //       console.log(p+"agafs");
-        p.id = i;//赋id值：从0开始，目的是通过这个可以进一步实现点击歌曲名就可以播放该首歌的功能，但还没有实现
-        p.src=  prefix + musicName + ".png";
+        p.id = i;
+        p.src=  prefix + musicName + ".jpg";
         console.log(p.src);
         var changeMusic =  document.getElementById(i);
         //console.log(changeMusic);
-        document.getElementById("cataBox").appendChild(p);//将节点p作为cataBox的子节点
+        document.getElementById("cataBox").appendChild(p);
   
        
     };
@@ -695,29 +642,29 @@ function showCatalogImage(){
                   
      };   
 
-    document.getElementById("catalogShowImage").style.display="none";//设置“显示目录”按钮为不可见
-    document.getElementById("catalogHideImage").style.display="inline";//设置“隐藏目录”按钮可见
-    document.getElementById("cataBox2").style.display="inline";//设置目录框可见
+    document.getElementById("catalogShowImage").style.display="none";
+    document.getElementById("catalogHideImage").style.display="inline";
+    document.getElementById("cataBox2").style.display="inline";
    }
 function hideCatalog(){
     document.getElementById("catalogHide").style.display="none";
     document.getElementById("catalogShow").style.display="inline";
     document.getElementById("cataBox2").style.display="none";
-}//点击隐藏
+}
 function hideCatalogVideo(){
     document.getElementById("catalogHideVideo").style.display="none";
     document.getElementById("catalogShowVideo").style.display="inline";
     document.getElementById("cataBox2").style.display="none";
-}//点击隐藏
+}
 function hideCatalogImage(){
     document.getElementById("catalogHideImage").style.display="none";
     document.getElementById("catalogShowImage").style.display="inline";
     document.getElementById("cataBox2").style.display="none";
-}//点击隐藏
+}
 
 function repeatAllSongs(){
     document.getElementById("myMusic").removeAttribute("loop");
-    repeat=window.setInterval("isEnded()",1000);//每1秒执行一次
+    repeat=window.setInterval("isEnded()",1000);
 
 }
 function repeatCurrentSong() {
@@ -727,7 +674,7 @@ function repeatCurrentSong() {
         repeat=0;
     }
 }
-function isEnded(){//检测当前歌曲是否已经播放完毕
+function isEnded(){
     var end=document.getElementById("myMusic").ended;
     end=end.toString();
     if(end=="true")

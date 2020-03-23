@@ -8,12 +8,12 @@ html
     body
         audio.Audio#myMusic(controls = 'controls',autoplay="autoplay")
             source#audioSrc(type = 'audio/mpeg')
-            //显示音频控件，并自动播放音频
+
         p
             img.musicImg#musicImg(alt="Just Play It !")
-            //设置没有图片src时显示的文字信息	
+
             img.background(src= '/images/background.jpg')
-            //网页背景图片
+
         p.v#v   
             video.myVideo#myVideo(src ='')
         p.c#c
@@ -21,7 +21,7 @@ html
         h.hide#test=catalogMusic
         h.hide#video=catalogVideo
         h.hide#image=catalogImage
-        //显示，只是为了接受从服务器传来的歌曲名字符串
+
 
         button.buttonLast#buttonLast(type = 'button', onclick = "playLastSong()") Precédent
         button.buttonNext#buttonNext(type = 'button', onclick = "playNextSong()") Suivante
@@ -57,15 +57,15 @@ html
         .outer-container#lyricsBox
             .inner-container
                 .content#lyrics
-                //显示歌词的框，用三个div元素是为了隐藏滚动条
+
 
         .cataBox2#cataBox2
             .cataBox1
                .cataBox#cataBox
-                //显示目录的框，用三个div元素是为了隐藏滚动条
+
 
         .hide#prefix=getPrefix
-        //不显示，只是为了接受从服务器传来的前缀字符串
+
         
         
 
