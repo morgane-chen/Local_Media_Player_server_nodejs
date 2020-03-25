@@ -17,19 +17,15 @@ var nolyrics =0;
 var video;
 var time;
 var canvas;
-
-//var btnlastvideo = document.getElementById("buttonLastVideo");
-//var btnnextvideo = document.getElementById("buttonNextVideo");
-//var btngo = document.getElementById("buttonGo");
-//var btnback = document.getElementById("buttonBack");
-//
-//var btnstart = document.getElementById("btnstart");
+var musicNum;
+var musicName;
+var ctx;
 var btnsound;
-
-//console.log(btnsound);
-
-
-
+var dimi = 1;
+var agran = 1;
+var scale = 1;
+var rotate = 0;
+var sym = 0;
 
 function Go(){
         btnstart.innerHTML = "Play";
@@ -38,7 +34,6 @@ function Go(){
             video[0].currentTime += 5;
         }, 1000);
     };//la fonction d'accélérer la vidéo
-
 function Back(){
        btnstart.innerHTML = "Play";
         video[0].pause();
@@ -50,24 +45,6 @@ function Back(){
             }
         }, 1000);
    };// la fonction de ralentir la vidéo
-
-
-
-//btnsound= $("#btnsound");   
-//function sound(){
-//	btnsound = $("btnsound");
-//	video = $("#v video");
-//	
-//      this.onmousedown=function(){
-//          video[0].volume=btnsound.value/100;
-//          console.log(this.value);
-//      }
-//      this.onmouseup=function(){
-//          this.onmousemove=null;
-//          this.onmouseup=null;
-//      }
-//  };
-
 function play() {
 	 
 	 video = $("#v video");
@@ -84,8 +61,6 @@ function play() {
             play[0].innerHTML = "Play";
         }
 }//la fonction du bouton Play/Pause
-
-
 function playNextVideo() {
 	
     songNum = songNum + 1;// le numéro de vidéo suivante
@@ -114,7 +89,7 @@ function playNextVideo() {
 	  play[0].innerHTML = "Pause";
 }//émettre la vidéo suivante 
 function playLastImage() {
-	
+	initImage();
     songNum = songNum - 1;//2
     console.log(songNum);
     if (songNum == -1) {
@@ -140,7 +115,7 @@ function playLastImage() {
      
 }//émettre la photo dernière
 function playNextImage() {
-	
+	initImage();
     songNum = songNum + 1;//2
     console.log(songNum);
     if (songNum == songTotal) {
@@ -191,7 +166,6 @@ function playLastVideo() {
      // console.log(video[0]);
   	 video[0].play(); 
 }//émettre la vidéo dernière
-
 function playNextSong() {
 
     songNum = songNum + 1;//2
@@ -234,6 +208,7 @@ function playLastSong() {
     getLyrics();
 }//émettre la chason dernière
 
+
 function getLyrics() {
 	
     lyricsAddress=prefix+songName[songNum]+".txt";
@@ -268,35 +243,6 @@ function showLyrics(){
 	document.getElementById("lyricsBox").style.display="none";}
 }//la fonction d'afficher les paroles
 
-//function getCatalog() {
-//  var catalog1 = [];
-//  songName=[];
-//  var temp = document.getElementById("test").innerHTML;//obtenir les informations venant de rooter
-//  document.getElementById("cataBox").innerHTML = "";//vider les informations d'avant：vider tous les éléments sous cataBox
-//  prefix=document.getElementById("prefix").innerHTML;//obtenir le Préfix
-//  prefix=prefix+"/";
-//  prefix=prefix.slice(9);//../public/resource/likes=》/resource/likes
-//
-//  catalog1 = temp.split(' ');//obtenir les strings des noms des chansons
-//  songTotal = catalog1.length - 1;//nombre total des chansons
-//
-//  hideCatalog();//cacher le catalogue
-//  var i = 0;
-//  for (i = 0; i < songTotal; i++) {
-//      songName[i]= catalog1[i].slice(0,-4);
-//
-//      var p = document.createElement("p");
-//      var t = document.createTextNode(songName[i]);
-//      p.appendChild(t);
-//      p.id = i;
-//      document.getElementById("cataBox").appendChild(p);
-//  }
-//		
-//  
-//
-//}
-var musicNum;
-var musicName;
 function getChange(e){
 	nolyrics = 0;
 	var b = document.getElementById("cataBox").childNodes;
@@ -312,7 +258,7 @@ function getChange(e){
      // console.log(video[0]);
   	 video[0].play(); 
 	hideBtnVideo();
-	showBtnImage();
+	showBtnMusic();
 	hideBtnImagenoMusic();
 	var b = document.getElementById("cataBox").childNodes;
 	musicNum = e.target.id;
@@ -340,7 +286,7 @@ function getChange(e){
 }
 function getChange2(e){
 	showBtnVideo();
-	hideBtnImage();
+	hideBtnMusic();
 	hideBtnImagenoMusic();
 	hideLyrics();
 	nolyrics = 1;
@@ -384,7 +330,8 @@ function getChange2(e){
                     }
 }
 function getChange3(e){
-	hideBtnImage();
+	initImage();
+	hideBtnMusic();
 	hideBtnVideo();
 	showBtnImagenoMusic();
 	 video = $("#v video")
@@ -396,7 +343,7 @@ function getChange3(e){
   	 video[0].play(); 
   	 
 	hideBtnVideo();
-	hideBtnImage();
+	hideBtnMusic();
 	hideLyrics();
 	nolyrics = 1;
 	document.getElementById("audioSrc").src='';
@@ -407,7 +354,7 @@ function getChange3(e){
 	canvas = $("#c canvas");
   	$("#c").show();
   	canvas.show();
-  	var ctx = canvas[0].getContext('2d'); 
+  	 ctx = canvas[0].getContext('2d'); 
 	ctx.clearRect(0,0,canvas[0].width,canvas[0].height);  
   	
 	
@@ -420,8 +367,6 @@ function getChange3(e){
                       if(b[i].value==musicName){
                           b[i].style.color="red";
   						  songNum  = i; 
-  						  //console.log(canvas);
-                      	  var ctx = canvas[0].getContext('2d'); 
                       	   var myImage = new Image();
         					 myImage.src = b[i].src;
                       	  console.log(b[i].src);
@@ -434,6 +379,7 @@ function getChange3(e){
                       }
                     }
 }
+
 function showCatalog(){
 //	hideBtnVideo();
 //	showBtnImage();
@@ -488,59 +434,6 @@ function showCatalog(){
 
     
 }
-function hideBtnImage(){
-	document.getElementById("buttonLast").style.display="none";
-	document.getElementById("buttonNext").style.display="none";
-	document.getElementById("repeatAllSongs").style.display="none";
-	document.getElementById("repeatCurrentSong").style.display="none";
-	document.getElementById("myMusic").style.display="none";
-	document.getElementById("musicImg").style.display="none";
-}//cacher les boutons servant à l'émission des chasons
-function showBtnImage(){
-	document.getElementById("buttonLast").style.display="inline";
-	document.getElementById("buttonNext").style.display="inline";
-	document.getElementById("repeatAllSongs").style.display="inline";
-	document.getElementById("repeatCurrentSong").style.display="inline";
-	document.getElementById("myMusic").style.display="inline";
-	document.getElementById("musicImg").style.display="inline";
-}//afficher les boutons servant à l'émission des chasons
-function hideBtnImagenoMusic(){
-
-	document.getElementById("buttonLastImage").style.display="none";
-	document.getElementById("buttonNextImage").style.display="none";
-	document.getElementById("myCanvas").style.display="none";
-}
-function showBtnImagenoMusic(){
-
-	document.getElementById("buttonLastImage").style.display="inline";
-	document.getElementById("buttonNextImage").style.display="inline";
-	document.getElementById("myCanvas").style.display="inline";
-
-}//afficher les boutons servant à l'émission des photos
-function hideBtnVideo(){
-	document.getElementById("buttonLastVideo").style.display="none";
-	document.getElementById("buttonNextVideo").style.display="none";
-	document.getElementById("buttonGo").style.display="none";
-	document.getElementById("buttonBack").style.display="none";
-	document.getElementById("buttonicontime").style.display="none";
-	document.getElementById("buttoniconsound").style.display="none";
-	document.getElementById("btntime").style.display="none";
-	document.getElementById("btnstart").style.display="none";
-	document.getElementById("btnsound").style.display="none";	
-	
-}//cacher les boutons servant à l'émission des vidéos
-function showBtnVideo(){
-	document.getElementById("buttonLastVideo").style.display="inline";
-	document.getElementById("buttonNextVideo").style.display="inline";
-	console.log("qjdu");
-	document.getElementById("buttonGo").style.display="inline";
-	document.getElementById("buttonBack").style.display="inline";
-	document.getElementById("buttonicontime").style.display="inline";
-	document.getElementById("buttoniconsound").style.display="inline";
-	document.getElementById("btntime").style.display="inline";
-	document.getElementById("btnstart").style.display="inline";
-	document.getElementById("btnsound").style.display="inline";	
-}//afficher les boutons servant à l'émission des vidéos
 function showCatalogVideo(){
 //	showBtnVideo();
 //	hideBtnImage();
@@ -646,6 +539,72 @@ function showCatalogImage(){
     document.getElementById("catalogHideImage").style.display="inline";
     document.getElementById("cataBox2").style.display="inline";
    }
+
+function hideBtnMusic(){
+	document.getElementById("buttonLast").style.display="none";
+	document.getElementById("buttonNext").style.display="none";
+	document.getElementById("repeatAllSongs").style.display="none";
+	document.getElementById("repeatCurrentSong").style.display="none";
+	document.getElementById("myMusic").style.display="none";
+	document.getElementById("musicImg").style.display="none";
+}//cacher les boutons servant à l'émission des chasons
+function showBtnMusic(){
+	document.getElementById("buttonLast").style.display="inline";
+	document.getElementById("buttonNext").style.display="inline";
+	document.getElementById("repeatAllSongs").style.display="inline";
+	document.getElementById("repeatCurrentSong").style.display="inline";
+	document.getElementById("myMusic").style.display="inline";
+	document.getElementById("musicImg").style.display="inline";
+}//afficher les boutons servant à l'émission des chasons
+function hideBtnImagenoMusic(){
+
+	document.getElementById("buttonLastImage").style.display="none";
+	document.getElementById("buttonNextImage").style.display="none";
+	document.getElementById("buttonInverseColor").style.display="none";
+	document.getElementById("buttonDiminuerImag").style.display="none";
+	document.getElementById("buttonAgrandirImag").style.display="none";
+	document.getElementById("buttonSymetriserImag").style.display="none";
+	document.getElementById("buttonRotateImag").style.display="none";
+	document.getElementById("buttonInitImag").style.display="none";
+	document.getElementById("myCanvas").style.display="none";
+}
+function showBtnImagenoMusic(){
+
+	document.getElementById("buttonLastImage").style.display="inline";
+	document.getElementById("buttonNextImage").style.display="inline";
+	document.getElementById("buttonInverseColor").style.display="inline";
+	document.getElementById("buttonDiminuerImag").style.display="inline";
+	document.getElementById("buttonAgrandirImag").style.display="inline";
+	document.getElementById("buttonSymetriserImag").style.display="inline";
+	document.getElementById("buttonRotateImag").style.display="inline";
+	document.getElementById("buttonInitImag").style.display="inline";
+	document.getElementById("myCanvas").style.display="inline";
+
+}//afficher les boutons servant à l'émission des photos
+function hideBtnVideo(){
+	document.getElementById("buttonLastVideo").style.display="none";
+	document.getElementById("buttonNextVideo").style.display="none";
+	document.getElementById("buttonGo").style.display="none";
+	document.getElementById("buttonBack").style.display="none";
+	document.getElementById("buttonicontime").style.display="none";
+	document.getElementById("buttoniconsound").style.display="none";
+	document.getElementById("btntime").style.display="none";
+	document.getElementById("btnstart").style.display="none";
+	document.getElementById("btnsound").style.display="none";	
+	
+}//cacher les boutons servant à l'émission des vidéos
+function showBtnVideo(){
+	document.getElementById("buttonLastVideo").style.display="inline";
+	document.getElementById("buttonNextVideo").style.display="inline";
+	console.log("qjdu");
+	document.getElementById("buttonGo").style.display="inline";
+	document.getElementById("buttonBack").style.display="inline";
+	document.getElementById("buttonicontime").style.display="inline";
+	document.getElementById("buttoniconsound").style.display="inline";
+	document.getElementById("btntime").style.display="inline";
+	document.getElementById("btnstart").style.display="inline";
+	document.getElementById("btnsound").style.display="inline";	
+}//afficher les boutons servant à l'émission des vidéos
 function hideCatalog(){
     document.getElementById("catalogHide").style.display="none";
     document.getElementById("catalogShow").style.display="inline";
@@ -661,6 +620,7 @@ function hideCatalogImage(){
     document.getElementById("catalogShowImage").style.display="inline";
     document.getElementById("cataBox2").style.display="none";
 }
+
 
 function repeatAllSongs(){
     document.getElementById("myMusic").removeAttribute("loop");
@@ -684,7 +644,142 @@ function isEnded(){
 }
 
 
+function InverseColor(){
+	canvas = $("#c canvas");
+	ctx = canvas[0].getContext('2d'); 
+	var b = document.getElementById("cataBox").childNodes;
+	var imgdata = ctx.getImageData(0,0,canvas[0].width, canvas[0].height);
+	for(var i=0, len=imgdata.data.length; i<len; i+=4) {
+    imgdata.data[i] = 255-imgdata.data[i];
+    imgdata.data[i+1] = 255-imgdata.data[i+1];
+    imgdata.data[i+2] = 255-imgdata.data[i+2];
+    
+}// traiter les données des pixels d'image
+	ctx.putImageData(imgdata,0,0);
+}
 
+function DiminuerImag(){
+	dimi = dimi+1;
+	scale = 1/dimi*agran;
+	console.log(dimi);
+	 canvas[0].height = canvas[0].height;
+	 canvas[0].width = canvas[0].width; 
+	 ctx = canvas[0].getContext('2d'); 
+ 	ctx.clearRect(0,0,canvas[0].width,canvas[0].height);
+	 //console.log(canvas[0].height);
+//	ctx.fillStyle="#000000";
+	 var b = document.getElementById("cataBox").childNodes;
+	var imgsrc = b[songNum].src;
+	//console.log(imgsrc);
+	var img = new Image();
+	img.src = imgsrc;
 
+	//console.log(img);
+	//ctx.clearRect(0,0,canvas[0].width,canvas[0].height);  
+	// var ctx = canvas[0].getContext('2d'); 
+	 ctx.translate(canvas[0].width/2, canvas[0].height/2);
+       ctx.scale(scale,scale);
+       ctx.translate(-canvas[0].width/2, -canvas[0].height/2);
+	 img.onload = function() {
+   							 ctx.drawImage(img, 0, 0,canvas[0].width, canvas[0].height);
+								}
 
+	
 
+}
+
+function AgrandirImag(){
+    agran = agran+1;
+    scale = agran/dimi;
+    console.log(agran);
+	 canvas[0].height = canvas[0].height;
+	 canvas[0].width = canvas[0].width; 
+	 ctx = canvas[0].getContext('2d'); 
+ 	ctx.clearRect(0,0,canvas[0].width,canvas[0].height);
+	 var b = document.getElementById("cataBox").childNodes;
+	var imgsrc = b[songNum].src;
+	//console.log(imgsrc);
+	var img = new Image();
+	img.src = imgsrc;
+	//console.log('qqq'+img.src);
+	//console.log(img);
+	//ctx.clearRect(0,0,canvas[0].width,canvas[0].height);  
+	// var ctx = canvas[0].getContext('2d'); 
+	   ctx.translate(canvas[0].width/2, canvas[0].height/2);
+	   ctx.scale(scale,scale);
+
+       ctx.translate(-canvas[0].width/2, -canvas[0].height/2);
+	 img.onload = function() {
+   							 ctx.drawImage(img, 0, 0,canvas[0].width, canvas[0].height);
+							}	
+
+}
+
+function SymetriserImag(){
+	sym = sym+1;
+	canvas = $("#c canvas");
+	canvas[0].height = canvas[0].height;
+	 canvas[0].width = canvas[0].width; 
+	 ctx =  canvas[0].getContext('2d'); 
+	ctx.clearRect(0,0,canvas[0].width,canvas[0].height);
+	var b = document.getElementById("cataBox").childNodes;
+	var imgsrc = b[songNum].src;
+	
+	console.log('ahsg');
+	console.log(imgsrc);
+	var img = new Image();
+	img.src = imgsrc;
+	ctx.translate(canvas[0].width/2, canvas[0].height/2);
+	ctx.scale(Math.pow(-1,sym), 1);
+	ctx.translate(-canvas[0].width/2, -canvas[0].height/2);
+	img.onload = function() {
+   							 ctx.drawImage(img, 0, 0,canvas[0].width, canvas[0].height);
+							}	
+	
+	
+}
+
+function RotateImag(){
+	
+	rotate = rotate+1;
+    canvas[0].height = canvas[0].height;
+	canvas[0].width = canvas[0].width; 
+	var ctx =  canvas[0].getContext('2d'); 
+	ctx.clearRect(0,0,canvas[0].width,canvas[0].height);
+	var b = document.getElementById("cataBox").childNodes;
+	var imgsrc = b[songNum].src;
+	
+	//console.log('ahsg');
+
+	var img = new Image();
+	img.src = imgsrc;
+		console.log(img.src);
+	ctx.translate(canvas[0].width/2, canvas[0].height/2);
+	ctx.rotate(rotate*45*Math.PI/180);
+	ctx.translate(-canvas[0].width/2, -canvas[0].height/2);
+	img.onload = function() {
+   							 ctx.drawImage(img, 0, 0,canvas[0].width, canvas[0].height);
+							}	
+	
+	
+}
+
+function initImage(){
+	canvas = $("#c canvas");
+	canvas[0].height = canvas[0].height;
+	 canvas[0].width = canvas[0].width; 
+	 ctx =  canvas[0].getContext('2d'); 
+	ctx.translate(canvas[0].width/2, canvas[0].height/2);
+	ctx.translate(-canvas[0].width/2, -canvas[0].height/2);
+	var b = document.getElementById("cataBox").childNodes;
+	var imgsrc = b[songNum].src;
+	
+	//console.log('ahsg');
+
+	var img = new Image();
+	img.src = imgsrc;
+	img.onload = function() {
+   							 ctx.drawImage(img, 0, 0,canvas[0].width, canvas[0].height);
+							}	
+	
+}

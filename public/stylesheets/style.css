@@ -55,6 +55,54 @@ video {
     display: block;
 }
 
+
+
+.buttonInverseColor{
+	display: none;
+  position:absolute;
+  top:480px;
+  left:540px;
+	
+}
+
+.buttonInitImag{
+	display: none;
+  position:absolute;
+	top:550px;
+  left:626px;
+	
+}
+
+.buttonDiminuerImag{
+	display: none;
+  position:absolute;
+  top:480px;
+  left:430px;
+	
+}
+.buttonAgrandirImag{
+	display: none;
+  position:absolute;
+  top:480px;
+  left:630px;	
+	
+}
+
+.buttonSymetriserImag{
+	display: none;
+  position:absolute;
+  top:480px;
+  left:735px;		
+	
+}
+.buttonRotateImag{
+	display: none;
+  position:absolute;
+  top:480px;
+  left:850px;			
+	
+}
+
 .buttonLastImage{
   display: none;
   position:absolute;
